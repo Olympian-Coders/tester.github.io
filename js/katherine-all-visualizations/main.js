@@ -45,15 +45,15 @@ function jcategoryChange3() {
 
 // load data using promises (promises are a way to store the data of multiple csv files all at once)
 let promises = [
-    d3.csv("data/oly_merged.csv"),
+    d3.csv("./data/oly_merged.csv"),
     d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json"),
-    d3.csv("data/proportions_df_oly.csv"),
-    d3.csv("data/result_top_10_teams_per_year.csv"),
-    d3.csv("data/maleFemaleandAll_counts.csv"),
-    d3.csv("data/oly.csv"),
-    d3.csv("data/womansInfoNew.csv"),
-    d3.csv("data/medals.csv"),
-    d3.json("data/countries-50m.json")
+    d3.csv("./data/proportions_df_oly.csv"),
+    d3.csv("./data/result_top_10_teams_per_year.csv"),
+    d3.csv("./data/maleFemaleandAll_counts.csv"),
+    d3.csv("./data/oly.csv"),
+    d3.csv("./data/womansInfoNew.csv"),
+    d3.csv("./data/medals.csv"),
+    d3.json("./data/countries-50m.json")
 ];
 
 function convertColumnType(data, columnName, targetType) {
