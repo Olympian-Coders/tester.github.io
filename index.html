@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Beyond the Podium</title>
+
+    <!--css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.4.0/nouislider.css" integrity="sha512-DGB74Gyw93qON+V0QxSRs1er6sqoPyFoy23HBL5LN7MRJBcjeCU22zega+vOEGE0XQLoVrv4ExcaesSTwZQA2w==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- d3 -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap">
+
+
+</head>
+<body>
+
+<!-- PAGE 1: Title -->
+<div class = "section-intro">
+    <br>
+    <h1>Beyond the Podium:</h1>
+    <h1>A Century of Performance and Progress</h1>
+    <br>
+    <br>
+    <img src = "img/olympic-rings.png" alt="Olympic Rings" width="800">
+</div>
+
+<!--PAGE 2a: Background -->
+<div class = "section-yellow center-text">
+
+    <h4 class = "h4-text">The Olympics. One of the most famous events in the world, whose name recalls years of practice
+        and weighty cultural significance dates back to 776 BC, where they were help in Athens, Greece,
+        almost 3000 years ago.
+    </h4>
+    <br>
+    <br>
+    <img src = "img/1924-paris-summer-olympics.webp" alt="olympic logo" width="200">
+    <img src = "img/1932_Summer_Olympics_Los_Angeles.webp" alt="olympic logo" width="200">
+    <img src = "img/1936_berlin_olympic_logo.webp" alt="olympic logo" width="200">
+
+    <!-- TODO: Insert logos throughout time or something like that -->
+
+</div>
+
+<!--PAGE 2b: visualization on how many countries participate in the olympics-->
+<div class = "section-green center-text quotation">
+
+    <h4 class = "h4-text"> The modern Olympic Games as we know them, however, were first held in 1896, though still in
+        Athens, and brought together 14 nations. Although at the time, a far cry from the behemoth
+        we recognize the Games as today, they have increased exponentially in <strong>size, participation, and relevance</strong>.
+    </h4>
+    <!-- TODO: Visualization on how many countries are in the Olympics over time -->
+
+</div>
+
+<!-- CARLY: COMPARISON BETWEEN NUMBER OF NATIONS AND NUMBER OF ATHLETES OVER TIME-->
+<div class = "section-yellow center-text">
+    <h4 class = "center-text"> The Olympic Games have increasingly become an international event.</h4>
+    <p class="center-text">Despite drops in athlete participation, nation participation has steadily grown.</p>
+    <p class="center-text">Explore this relationship by brushing on the left graph to see how nation participation steady increases</p>
+
+    <!-- Line Graph -->
+    <div class="row">
+        <div class="col">
+            <div id="athletesParticipatingLineDiv"></div>
+        </div>
+        <div class="col">
+            <div id="nationsParticipatingLineDiv"></div>
+        </div>
+    </div>
+
+    <br>
+    <h6 class="center-text">* Note that the sudden drop in 1980 was due to nations boycotting the games, that year held in the Soviet Union, in protest of the Soviet-Afghan War.</h6>
+
+</div>
+
+<!--PAGE 3: Globe -->
+<div class = "section-blue">
+    <h4 class="center-text">To gain a better outlook on what nations were involved each Summer Olympic Games,
+        choose a year and have the globe identify the nations. </h4>
+
+    <div id = "participationGlobe">
+        <div class="row main-margins">
+
+            <!-- Left -->
+            <div class="col-sm-7">
+                <div id="mapDiv" style="height: 71vh; width: 100%;"></div>
+            </div>
+
+            <!-- Right -->
+            <div class="col-sm-5">
+                <p class="center-text">Select the Year of the Summer Olympics</p>
+
+                <!-- HTML for the select element -->
+                <select id='categorySelector' class="custom-select align-self-center" onchange="categoryChange()"></select>
+
+                <!-- JavaScript to generate <option> elements -->
+                <script>
+                    // Assuming you have an array of years
+                    let olympicYears = [1896, 1900, 1904, 1908, 1912, 1916, 1920, 1924, 1928, 1932,
+                        1936, 1940, 1944, 1948, 1952, 1956, 1960, 1964, 1968, 1972, 1976, 1980, 1984,
+                        1988, 1992, 1996, 2000, 2004, 2008, 2012, 2016];
+                    // Get the select element by its id
+                    let categorySelector = document.getElementById('categorySelector');
+                    // Loop through the array of years and create an <option> for each year
+                    olympicYears.forEach(year => {
+                        let option = document.createElement('option');
+                        option.value = year;
+                        option.text = year;
+                        categorySelector.add(option);
+                    });
+                </script>
+
+                <br>
+                <small><i>Reminder: While the Olympics were scheduled in 1916, 1940, and 1944 they did not take place due to WWI and WWII.</i></small>
+                <br>
+                <br>
+
+                <!-- TABLE -->
+                <div class="col " id="chart-area"></div>
+                <div class="col info-table table-background" id="dynamic-content" align="center">
+                    <table class="table table-style">
+                        <p class = "table-style"><strong>Olympic Games</strong></p>
+                        <tr>
+                            <th scope="row">Host City</th>
+                            <td id="host-city"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Number of Nations</th>
+                            <td id="num-nations"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Number of Athletes</th>
+                            <td id="num-athletes"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CARLY: CARROUSEL OF PICTURES -->
+<<div id="carouselExampleControls" class="carousel slide section-black mx-auto" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/img/quote1.png" class="d-block w-100 mx-auto" style="max-width: 85%; height: 600px;">
+        </div>
+        <div class="carousel-item">
+            <img src="/img/quote2.png" class="d-block w-100 mx-auto" style="max-width: 85%; height: 600px;">
+        </div>
+        <div class="carousel-item">
+            <img src="/img/quote3.png" class="d-block w-100 mx-auto" style="max-width: 85%; height: 600px;">
+        </div>
+    </div>
+    <button class="carousel-control-prev" style = "color: black" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
+</div>
+
+
+<!--Section 5: Katherine - MEDALS -->
+<!-- Medal Linked Dashboard-->
+<div class = "section-blue-medals center-text">
+
+    <h4>The United States, Russia, and Germany hold the top 3 spots for
+    the most Summer Olympic medals won, particularly due to their long history of
+        participating in the Games </h4>
+    <p>Claiming medals for one's country is more contentious than ever, with
+        countries such as China investing heavily in having a strong athletic
+        presence on the world stage. </p>
+
+<!-- Map -->
+<div class="row main-margins">
+    <div class="col-lg-12">
+        <div class="align-self-center" id="world-map-vis" style="height: 45vh; width: 100%"></div>
+    </div>
+</div>
+
+<!-- Bar Charts -->
+<div class="row main-margins">
+
+    <div class="col-lg-4 center-text">
+
+        <p id="Gold-title"></p>
+        <!-- Gold -->
+        <div class="row justify-content-center graph gold-background" style="height: 20vh">
+            <div class="align-self-center" id="gold-bar-chart" style="height: 100%; width: 100%"></div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-4 center-text">
+
+        <p id="Silver-title"></p>
+        <!-- Silver -->
+        <div class="row justify-content-center silver-background" style="height: 20vh">
+            <div class="align-self-center" id="silver-bar-chart" style="height: 100%; width: 100%"></div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 center-text">
+
+        <p id="Bronze-title"></p>
+        <!-- Bronze -->
+        <div class="row justify-content-center bronze-background" style="height: 20vh">
+            <div class="align-self-center" id="bronze-bar-chart" style="height: 100%; width: 100%"></div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<!-- PAGE 4: CARLY - SPORT INCLUSION IN THE OLYMPICS OVER TIME -->
+<div class = "section-green center-text">
+    <h4 class = "h4-text"> The Olympics have expanded to encompass many different types of events and athletes. One of the oldest games were athletics, such as track and field, while one of the newest is triathlon.
+    </h4>
+    <br>
+    <h5>Pick and choose your favorite events to see how their age compares.</h5>
+    <div class="row justify-content-center">
+
+        <div class="form-row">
+            <div class="col">
+                <select id='eventCategorySelector1' class="custom-select align-self-center" onchange="participationCategoryChange1()"></select>
+            </div>
+            <div class="col">
+                <select id='eventCategorySelector2' class="custom-select align-self-center" onchange="participationCategoryChange1()"></select>
+            </div>
+            <div class="col">
+                <select id='eventCategorySelector3' class="custom-select align-self-center" onchange="participationCategoryChange1()"></select>
+            </div>
+
+            <!-- JavaScript to generate <option> elements -->
+            <script>
+                // Assuming you have an array of events
+                let olympicEvents = ["Basketball", "Judo", "Football", "Tug-Of-War", "Athletics", "Swimming", "Badminton",
+                    "Sailing", "Gymnastics", "Art Competitions", "Handball", "Weightlifting", "Wrestling", "Water Polo", "Hockey", "Rowing",
+                    "Fencing", "Equestrianism", "Shooting", "Boxing", "Taekwondo", "Cycling", "Diving", "Canoeing",
+                    "Tennis", "Modern Pentathlon", "Golf", "Softball", "Archery", "Volleyball", "Synchronized Swimming",
+                    "Table Tennis", "Baseball", "Rhythmic Gymnastics", "Rugby Sevens", "Trampolining", "Beach Volleyball",
+                    "Triathlon", "Rugby", "Lacrosse", "Polo", "Cricket", "Ice Hockey", "Racquets", "Motorboating",
+                    "Croquet", "Figure Skating", "Jeu De Paume", "Roque", "Basque Pelota", "Alpinism", "Aeronautics"
+                ];
+
+                // Get the select element by its id
+                let eventCategorySelector1 = document.getElementById('eventCategorySelector1');
+                let eventCategorySelector2 = document.getElementById('eventCategorySelector2');
+                let eventCategorySelector3 = document.getElementById('eventCategorySelector3');
+                // Loop through the array of years and create an <option> for each year
+                olympicEvents.forEach(event => {
+                    let eventOption = document.createElement('option');
+                    eventOption.value = event;
+                    eventOption.text = event;
+                    eventCategorySelector1.add(eventOption);
+                });
+                olympicEvents.forEach(event => {
+                    let eventOption = document.createElement('option');
+                    eventOption.value = event;
+                    eventOption.text = event;
+                    eventCategorySelector2.add(eventOption);
+                });
+                olympicEvents.forEach(event => {
+                    let eventOption = document.createElement('option');
+                    eventOption.value = event;
+                    eventOption.text = event;
+                    eventCategorySelector3.add(eventOption);
+                });
+            </script>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div id="eventParticipationDiv"></div>
+        </div>
+    </div>
+</div>
+
+<!--PAGE 6: Transition to female representation-->
+<div class = "section-yellow center-text">
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    <h3 class = "h4-text"> However, when acknowledging the power and position that the Olympic Games holds in the cultural
+        zeitgeist, <strong>we must also investigate what it accomplishes with that power</strong>. With it, does it
+        acknowledge the people that its five rings aims to represent, people across the globe
+        and on every continent?
+
+        Investigating how representative the games are is a large task, so we’ve decided to just focus on how
+        the Games have represented female athletes over time.
+
+    </h3>
+</div>
+
+<!-- PAGE 6A: JULIE STACKED BAR CHART-->
+<div class = "section-blue center-text">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8 offset-2">
+
+                <!-- heading -->
+                <div class="row justify-content-center align-items-center" style="height: 15vh">
+                    <div class="text-center">
+                        <h4>Representation of Sexes Over the Years</h4>
+                        <p>Click on each area graph to view the trend; pick years to focus on with the timeline!</p>
+                    </div>
+                </div>
+
+                <!-- stacked bar chart -->
+                <div class="row justify-content-center" style="height: 50vh">
+                    <div class="align-self-center" id="stacked-area-chart" style="height: 100%; width: 100%"></div>
+                </div>
+
+                <!-- timeline -->
+                <div class="row justify-content-center" style="height: 10vh">
+                    <div class="align-self-center" id="timeline" style="height: 100%; width: 100%"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- SECTION 7B: BUBBLE CHART -->
+<div class = "section-yellow-long center-text">
+    <h3>Today, female olympians are becoming more and more represented. Below are the countries with the most female olympians </h3>
+
+    <div id = femaleOlympiansCountry
+         style="height: 100%; width:100%;">
+
+        <div class="col-sm-5 ">
+            <p id>
+                Select the Year of the Summer Olympics
+            </p>
+            <!-- HTML for the select element -->
+            <select id='jcategorySelector3' class="custom-select align-self-center" onchange="jcategoryChange3()"></select>
+            <!-- JavaScript to generate <option> elements -->
+            <script>
+                // Assuming you have an array of years
+                let jolympicYears3 = [1896, 1900, 1908, 1912, 1920, 1924, 1928, 1932,
+                    1936, 1948, 1952, 1956, 1960, 1964, 1968, 1972, 1976, 1980, 1984,
+                    1988, 1992, 1996, 2000, 2004, 2008, 2012, 2016];
+                // Get the select element by its id
+                let jcategorySelector3 = document.getElementById('jcategorySelector3');
+                // Loop through the array of years and create an <option> for each year
+                jolympicYears3.forEach(year => {
+                    let option = document.createElement('option');
+                    option.value = year;
+                    option.text = year;
+                    jcategorySelector3.add(option);
+                });
+            </script>
+        </div>
+
+        <div id = "bubbleChartContainer"> </div>
+
+    </div>
+
+</div>
+
+<!-- SECTION 8: TRANSITION -->
+<!-- TODO -->
+
+<!--PAGE 9: TIMELINE OF KEY FIGURES - CARLY -->
+<div class = "section-green center-text">
+    <h3>This increasing representation heralds a time of female athletic domination. Hover over the circles to learn about the women who dominated their fields and forged pathways for those that followed.</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div id="womensInfoDiv"></div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col align-items-start">
+                <div class="text-center" id="womensInfoPic"></div>
+            </div>
+            <div class="col align-items-start my-auto">
+                <div class="text-center" id="womensInfoParagraph">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--PAGE 10: Most popular sports amongst women-->
+<!--<div class = "section-yellow">
+    <p>Closing Word</p>
+</div>-->
+
+
+<!--concluding page-->
+<div class = "section-yellow quotation center-text">
+    <h1>Conclusion</h1>
+        <h4>The Olympics hold a long and historic place in international culture. It's important, therefore, that they become and remain as representative and inclusive of the cultures that it aims to represent. Our analysis has shown remarkable change towards this goal, and, possibily, indicates a hopeful trend towards <strong>representativeness and equity</strong>.</h4>
+</div>
+
+<div class="section-blue conclusion center-text">
+    <h1>Meet the creators</h1>
+    <div class="creators-container">
+        <div class="creator" id="carlyIMG">
+            <img id="CarlyPic" src="img/carlyimg.PNG" alt="Photo of Carly">
+            <h4>Carly Chen</h4>
+        </div>
+        <div class="creator" id="katherineIMG">
+            <img id="katherinePic" src="img/katherineimg.PNG" alt="Photo of Katherine">
+            <h4>Katherine Jackson</h4>
+        </div>
+        <div class="creator" id="julieIMG">
+            <img id="JuliePic" src="img/julieimg.PNG" alt="Photo of Julie">
+            <h4>Julie Lopez</h4>
+        </div>
+    </div>
+</div>
+
+<!--******LINKS*******-->
+<!--bootstrap-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+<!--d3-->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<!--from katherine's globe viz-->
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/topojson.v2.min.js"></script>
+<script src="https://d3js.org/d3-geo.v1.min.js"></script>
+
+<!--js libraries-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.4.0/nouislider.min.js"
+        integrity="sha512-mZXUH8DAODwCHioWP3gltQwa953LbABMlzTYwYkKqv8eNxOk37B1HgNNuCMfFxgrpW5C34WJbxPDcM58+s1dJA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!--javascript-->
+
+<!--KATHERINE: All Visualizations -->
+<script src="js/katherine-all-visualizations/main.js"></script>
+<script src="js/katherine-all-visualizations/chordDiagram.js"></script>
+<script src="js/katherine-all-visualizations/mapVis.js"></script>
+<script src="js/katherine-all-visualizations/worldMapVis.js"></script>
+<script src="js/katherine-all-visualizations/barChart.js"></script>
+
+<!-- JULIE: Bubble Chart-->
+<script src="js/julie-bubble-chart/jbubble3_nl.js"></script>
+
+<!-- JULIE: Stacked Area Chart-->
+<script src="js/julie-stacked-area-chart/stackedAreaChart.js"></script>
+<script src="js/julie-stacked-area-chart/timeline.js"></script>
+
+<!-- CARLY: Nations and Athletes Over Time Comparison -->
+<script src="js/carly-all-visualizations/athletesParticipatingLineMap.js"></script>
+<script src="js/carly-all-visualizations/nationsParticipatingLineMap.js"></script>
+
+<!-- CARLY: Women Timeline -->
+<script src="js/carly-all-visualizations/womensInfoMap.js"></script>
+
+<!-- CARLY: Event Participation Over Time -->
+<script src="js/carly-all-visualizations/eventParticipationMap.js"></script>
+
+
+</body>
+</html>
