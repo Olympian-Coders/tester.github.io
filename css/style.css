@@ -1,0 +1,302 @@
+
+/* GENERAL AESTHETICS */
+
+body {
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+    text-align: left;
+}
+
+.h4-text {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.section-intro {
+    text-align: center;
+    width: 85%;
+    height: 650px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 75px auto;
+    background-color: aliceblue;
+}
+
+.section-blue {
+    background-color: rgba(0, 129, 200, 0.2);
+    width: 85%;
+    height: 650px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 75px auto;
+}
+
+.section-blue-medals {
+    background-color: rgba(0, 129, 200, 0.2);
+    width: 85%;
+    height: 750px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 75px auto;
+}
+
+.section-yellow {
+    background-color: rgba(252, 177, 49, 0.2);
+    width: 85%;
+    height: 650px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 75px auto;
+}
+
+.section-yellow-long {
+    background-color: rgba(252, 177, 49, 0.2);
+    width: 85%;
+    height: 800px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 75px auto;
+}
+
+
+.section-black {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 85%;
+    height: 650px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 75px auto;
+}
+
+.section-green {
+    background-color: rgba(0, 166, 81, 0.6);
+    width: 85%;
+    height: 650px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 75px auto;
+}
+
+.section-red {
+    background-color: rgba(238, 51, 78, 0.6);
+    width: 85%;
+    height: 650px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 75px auto;
+}
+
+.quotation {
+
+    padding-top: 250px;
+    padding-right: 100px;
+    padding-left: 100px;
+
+
+}
+
+/* PAGE SPECIFIC  AESTHETICS */
+.section-green-long {
+    background-color: rgba(0, 166, 81, 0.6);
+    width: 85%;
+    height: 1700px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 75px auto;
+}
+
+.section-blue-chord {
+    background-color: rgba(0, 129, 200, 0.2);
+    width: 85%;
+    height: 750px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 75px auto;
+}
+
+html { /* body won't work ¯\_(ツ)_/¯ */
+    scroll-snap-type: y mandatory;
+}
+body { /* body won't work ¯\_(ツ)_/¯ */
+
+    scroll-snap-type: y mandatory;
+}
+
+section {
+    height: 100vh;
+    width: 100vw;
+    scroll-snap-align: start;
+}
+
+/* MAPVIS */
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.main-margins {
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
+
+/* JULIE - WOMEN PARTICIPATION */
+#world-cup-edition {
+    display: none;
+    background-color: #F5EFEF;
+    padding: 20px;
+    border: thin solid #4B6D4A; border-radius: 5px
+}
+
+
+/* JULIE - LINE CHART */
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+.axis text {
+    font-size: 11px;
+}
+
+.line {
+    fill: none;
+    stroke: #00A651;
+    stroke-width: 3px;
+}
+
+.tooltip-circle {
+    fill: #5C865B;
+    cursor: pointer;
+}
+
+.tooltip-title {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.d3-tip {
+    line-height: 1;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+    z-index: 100;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+}
+
+/* Stacked Bar Chart - Julie  */
+.container-fluid {
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+
+    shape-rendering: crispEdges;
+}
+
+.browser text {
+    text-anchor: end;
+}
+
+.area {
+    opacity: 0.7;
+    clip-path: url(#clip);
+}
+.area:hover {
+    opacity: 1;
+}
+
+.brush .extent {
+    stroke: #fff;
+    fill-opacity: .125;
+    shape-rendering: crispEdges;
+}
+
+.custom-black {
+    background-color: black;
+    color: white; /* Optionally set text color to white for better visibility */
+    border: none; /* Optionally remove border for a cleaner look */
+}
+
+
+.creators-container {
+    text-align: center;
+}
+
+.creator {
+    display: inline-block;
+    text-align: center;
+    margin: 60px 30px 0; }
+
+.creator img {
+    width: 300px; /* Adjust the image size as needed */
+}
+
+
+/* Katherine - Globe*/
+
+.table-background {
+    padding: 30px;
+    background-color: rgba(0, 129, 200);
+
+}
+
+.table-style {
+    color: white;
+}
+
+/* Katherine - Medals Dashboard */
+.gold-background {
+    padding-top: 18px;
+    background-color: #CC9933;
+    margin: 10px;
+
+}
+
+.silver-background {
+    padding-top: 18px;
+    background-color: #C0C0C0;
+    margin: 10px;
+}
+
+.bronze-background {
+    padding-top: 18px;
+    background-color: #bb8141;
+    margin: 10px;
+}
